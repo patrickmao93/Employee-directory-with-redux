@@ -1,11 +1,18 @@
 import React from "react";
+import { connect } from "react-redux";
 
-const onCardClick = () => {};
+import { selectEmployee } from "../actions";
+
+const onCardClick = props => {
+  return event => {
+    props.selectEmployee(props.employee);
+  };
+};
 
 const Card = props => {
   const employeeInfo = props.employee.info;
   return (
-    <div className="card" onClick={onCardClick()}>
+    <div className="card" onClick={onCardClick(props)}>
       <div className="card__thumbnail">
         <img
           className="card__thumbnail__image"
@@ -24,4 +31,7 @@ const Card = props => {
   );
 };
 
-export default Card;
+export default connect(
+  null,
+  { selectEmployee }
+)(Card);

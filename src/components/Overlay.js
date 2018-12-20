@@ -1,7 +1,33 @@
 import React from "react";
+import { connect } from "react-redux";
 
-const Overlay = props => {
-  return <div className="overlay">{props.children}</div>;
+import { closeModal } from "../actions";
+
+const onClick = props => {
+  return event => {
+    props.closeModal();
+  };
 };
 
-export default Overlay;
+const Overlay = props => {
+  if (props.showModal) {
+    return (
+      <div className="overlay overlay--active" onClick={onClick(props)}>
+        {props.children}
+      </div>
+    );
+  } else {
+    return <div className="overlay">{props.children}</div>;
+  }
+};
+
+const mapStateToProps = state => {
+  return {
+    showModal: state.showModal
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { closeModal }
+)(Overlay);

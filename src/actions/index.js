@@ -12,7 +12,7 @@ export const fetchEmployees = () => async dispatch => {
   });
 };
 
-export const updateSearchInput = input => (dispatch, getState) => {
+export const searchInput = input => (dispatch, getState) => {
   dispatch({
     type: "SEARCH_INPUT",
     payload: {
@@ -20,4 +20,17 @@ export const updateSearchInput = input => (dispatch, getState) => {
       employees: getState().employees
     }
   });
+};
+
+export const selectEmployee = employee => {
+  return {
+    type: "SELECT_EMPLOYEE",
+    employee: employee
+  };
+};
+
+export const closeModal = () => {
+  return {
+    type: "CLOSE_MODAL"
+  };
 };

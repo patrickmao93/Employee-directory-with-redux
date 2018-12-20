@@ -1,11 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { updateSearchInput } from "../actions";
+import { searchInput } from "../actions";
 
 const onInputChange = props => {
   return event => {
-    props.updateSearchInput(event.target.value);
+    props.searchInput(event.target.value);
   };
 };
 
@@ -30,5 +30,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { updateSearchInput }
+  { searchInput }
 )(SearchBar);

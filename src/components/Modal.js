@@ -1,26 +1,48 @@
 import React from "react";
+import { connect } from "react-redux";
+
+const onClick = event => {
+  event.stopPropagation();
+};
+
+const renderArrow = orientation => {};
 
 const Modal = props => {
+  const employeeInfo = props.selectedEmployee.info;
+  if (!employeeInfo) {
+    return null;
+  }
   return (
-    <div className="modal-wrapper">
+    <div className="modal-wrapper" onClick={onClick}>
       <div className="modal">
         <div className="modal__thumbnail">
-          <img src="" alt="" />
+          <img src={employeeInfo.picURL} alt={employeeInfo.firstName} />
         </div>
         <div className="modal__info">
-          <h2 className="modal__info__name">Name</h2>
-          <span className="modal__info__desc">email@email.com</span>
-          <span className="modal__info__desc">City</span>
+          <h2 className="modal__info__name">
+            {employeeInfo.firstName + " " + employeeInfo.lastName}
+          </h2>
+          <span className="modal__info__desc">{employeeInfo.email}</span>
+          <span className="modal__info__desc">{employeeInfo.city}</span>
           <div className="modal__info__divider" />
-          <span className="modal__info__desc">Phone number</span>
-          <span className="modal__info__desc">address</span>
-          <span className="modal__info__desc">Birthday: Birthday</span>
+          <span className="modal__info__desc">{employeeInfo.phone}</span>
+          <span className="modal__info__desc">{employeeInfo.address}</span>
+          <span className="modal__info__desc">
+            Birthday: {employeeInfo.birthday}
+          </span>
         </div>
       </div>
-      {/* {this.renderArrow("left")}
-      {this.renderArrow("right")} */}
+      {renderArrow("left")}
+      {renderArrow("right")}
     </div>
   );
 };
 
-export default Modal;
+const mapStateToProps = state => {
+  return {
+    selectedEmployee: state.selectedEmployee,
+    displayedEmployeesLength: state.displayedEmployees.length
+  };
+};
+
+export default connect(mapStateToProps)(Modal);
