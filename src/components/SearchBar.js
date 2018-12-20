@@ -1,24 +1,35 @@
 import React from "react";
+import { connect } from "react-redux";
 
-class SearchBar extends React.Component {
-  state = { term: "" };
+import { updateSearchInput } from "../actions";
 
-  onInputChange(event) {
-    this.setState(event.target.value);
-  }
+const onInputChange = props => {
+  return event => {
+    props.updateSearchInput(event.target.value);
+  };
+};
 
-  render() {
-    return (
-      <input
-        className="search-bar"
-        type="text"
-        name="search"
-        value={this.state.term}
-        onChange={this.onInputChange}
-        placeholder="Start typing to search..."
-      />
-    );
-  }
-}
+const SearchBar = props => {
+  console.log(props);
+  return (
+    <input
+      className="search-bar"
+      type="text"
+      name="search"
+      value={props.searchTerm}
+      onChange={onInputChange(props)}
+      placeholder="Start typing to search..."
+    />
+  );
+};
 
-export default SearchBar;
+const mapStateToProps = state => {
+  return {
+    searchTerm: state.searchTerm
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { updateSearchInput }
+)(SearchBar);
