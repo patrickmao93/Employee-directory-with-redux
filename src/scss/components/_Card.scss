@@ -1,0 +1,41 @@
+.card {
+  @extend %card;
+
+  &__thumbnail {
+    @include roundy(50px);
+    margin-right: 16px;
+    overflow: hidden;
+
+    @include media("md") {
+      @include roundy(100px);
+    }
+
+    &__img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  &__info {
+    font-family: $font-family-primary;
+    &__name {
+      font-size: 1.2em;
+      font-weight: 600;
+      color: $color-font-primary;
+      margin-bottom: 5px;
+    }
+    &__desc {
+      display: block;
+      font-size: 0.8em;
+      font-weight: 400;
+      color: $color-font-secondary;
+      line-height: 1.6;
+    }
+  }
+
+  &:hover {
+    border-color: $color-focus;
+    box-shadow: 0 6px 14px -6px rgba($color: #000000, $alpha: 0.2);
+    transform: translateY(-3px);
+  }
+}
