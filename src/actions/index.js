@@ -1,25 +1,23 @@
 import randomAPI from "../apis/randomAPI";
+import { Employee } from "./../models/Employee";
 
 export const fetchEmployees = () => async dispatch => {
   const response = await randomAPI.get("?results=12&nat=us");
+  const employees = response.data.results.map(
+    employee => new Employee(employee)
+  );
   dispatch({
     type: "FETCH_EMPLOYEES",
-    payload: response.data.results
+    employees: employees
   });
 };
 
-export const searchEmployees = () => (dispatch, getState) => {
-  const state = getState();
-
+export const updateSearchInput = input => (dispatch, getState) => {
   dispatch({
-    type: "SEARCH_EMPLOYEES",
-    state
-  });
-};
-
-export const updateSearchInput = input => {
-  return {
     type: "SEARCH_INPUT",
-    input
-  };
+    payload: {
+      input: input,
+      employees: getState().employees
+    }
+  });
 };

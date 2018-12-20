@@ -1,15 +1,24 @@
 import React from "react";
 
+const onCardClick = () => {};
+
 const Card = props => {
+  const employeeInfo = props.employee.info;
   return (
-    <div className="card">
+    <div className="card" onClick={onCardClick()}>
       <div className="card__thumbnail">
-        <img className="card__thumbnail__image" src="" alt="" />
+        <img
+          className="card__thumbnail__image"
+          src={employeeInfo.picURL}
+          alt={employeeInfo.firstName}
+        />
       </div>
       <div className="card__info">
-        <h2 className="card__info__name">Name</h2>
-        <span className="card__info__desc">email@email.com</span>
-        <span className="card__info__desc">City</span>
+        <h2 className="card__info__name">
+          {employeeInfo.firstName} {employeeInfo.lastName}
+        </h2>
+        <span className="card__info__desc">{employeeInfo.email}</span>
+        <span className="card__info__desc">{employeeInfo.city}</span>
       </div>
     </div>
   );

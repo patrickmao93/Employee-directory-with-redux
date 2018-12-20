@@ -10,7 +10,6 @@ const onInputChange = props => {
 };
 
 const SearchBar = props => {
-  console.log(props);
   return (
     <input
       className="search-bar"
