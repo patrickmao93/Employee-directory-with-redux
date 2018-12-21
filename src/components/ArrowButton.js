@@ -1,6 +1,6 @@
 import React from "react";
 
-const renderArrow = props => {
+const renderArrowPath = props => {
   if (props.orientation === "left") {
     return (
       <path
@@ -31,7 +31,7 @@ const ArrowButton = props => {
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 256 512"
       >
-        {renderArrow(props)}
+        {renderArrowPath(props)}
       </svg>
     </nav>
   );

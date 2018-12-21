@@ -9,16 +9,10 @@ const onClick = event => {
 };
 
 const renderArrow = (props, orientation) => {
-  if (orientation === "left" && props.selectedEmployee.index > 0) {
-    return (
-      <ArrowButton
-        orientation={orientation}
-        onClick={onClickArrow(props, orientation)}
-      />
-    );
-  } else if (
-    orientation === "right" &&
-    props.selectedEmployee.index < props.displayedEmployees.length - 1
+  if (
+    (orientation === "left" && props.selectedEmployee.index > 0) ||
+    (orientation === "right" &&
+      props.selectedEmployee.index < props.displayedEmployees.length - 1)
   ) {
     return (
       <ArrowButton
@@ -26,23 +20,25 @@ const renderArrow = (props, orientation) => {
         onClick={onClickArrow(props, orientation)}
       />
     );
+  } else {
+    return null;
   }
 };
 
 const onClickArrow = (props, orientation) => {
   return event => {
+    console.log(props.selectedEmployee.index);
     let index = null;
     if (orientation === "left") {
-      index = --props.selectedEmployee.index;
+      index = props.selectedEmployee.index - 1;
     } else if (orientation === "right") {
-      index = ++props.selectedEmployee.index;
+      index = props.selectedEmployee.index - 1;
     }
     props.selectEmployee(props.displayedEmployees[index]);
   };
 };
 
 const Modal = props => {
-  console.log(props.selectedEmployee);
   const employeeInfo = props.selectedEmployee.info;
   if (!employeeInfo) {
     return null;
