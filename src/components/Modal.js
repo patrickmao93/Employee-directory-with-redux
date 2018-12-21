@@ -1,13 +1,48 @@
 import React from "react";
 import { connect } from "react-redux";
 
+import ArrowButton from "./ArrowButton";
+import { selectEmployee } from "./../actions/index";
+
 const onClick = event => {
   event.stopPropagation();
 };
 
-const renderArrow = orientation => {};
+const renderArrow = (props, orientation) => {
+  if (orientation === "left" && props.selectedEmployee.index > 0) {
+    return (
+      <ArrowButton
+        orientation={orientation}
+        onClick={onClickArrow(props, orientation)}
+      />
+    );
+  } else if (
+    orientation === "right" &&
+    props.selectedEmployee.index < props.displayedEmployees.length - 1
+  ) {
+    return (
+      <ArrowButton
+        orientation={orientation}
+        onClick={onClickArrow(props, orientation)}
+      />
+    );
+  }
+};
+
+const onClickArrow = (props, orientation) => {
+  return event => {
+    let index = null;
+    if (orientation === "left") {
+      index = --props.selectedEmployee.index;
+    } else if (orientation === "right") {
+      index = ++props.selectedEmployee.index;
+    }
+    props.selectEmployee(props.displayedEmployees[index]);
+  };
+};
 
 const Modal = props => {
+  console.log(props.selectedEmployee);
   const employeeInfo = props.selectedEmployee.info;
   if (!employeeInfo) {
     return null;
@@ -32,8 +67,8 @@ const Modal = props => {
           </span>
         </div>
       </div>
-      {renderArrow("left")}
-      {renderArrow("right")}
+      {renderArrow(props, "left")}
+      {renderArrow(props, "right")}
     </div>
   );
 };
@@ -41,8 +76,11 @@ const Modal = props => {
 const mapStateToProps = state => {
   return {
     selectedEmployee: state.selectedEmployee,
-    displayedEmployeesLength: state.displayedEmployees.length
+    displayedEmployees: state.displayedEmployees
   };
 };
 
-export default connect(mapStateToProps)(Modal);
+export default connect(
+  mapStateToProps,
+  { selectEmployee }
+)(Modal);
