@@ -2,7 +2,7 @@ import randomAPI from "../apis/randomAPI";
 import { Employee } from "./../models/Employee";
 
 export const fetchEmployees = () => async dispatch => {
-  const response = await randomAPI.get("?results=12&nat=us");
+  const response = await randomAPI.get("?results=40&nat=us");
   const employees = response.data.results.map(
     employee => new Employee(employee)
   );

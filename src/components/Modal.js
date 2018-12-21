@@ -27,12 +27,11 @@ const renderArrow = (props, orientation) => {
 
 const onClickArrow = (props, orientation) => {
   return event => {
-    console.log(props.selectedEmployee.index);
     let index = null;
     if (orientation === "left") {
       index = props.selectedEmployee.index - 1;
     } else if (orientation === "right") {
-      index = props.selectedEmployee.index - 1;
+      index = props.selectedEmployee.index + 1;
     }
     props.selectEmployee(props.displayedEmployees[index]);
   };
